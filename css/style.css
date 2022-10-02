@@ -104,3 +104,21 @@ body {
 .header__date {
     font-size: 1.25rem;
 }
+
+/* FORM */
+
+.scheduler-add__input {
+    border-color: var(--green-button-color);
+    color: var(--input-placeholder-color);
+    font-size: 0.875rem;
+}
+
+.scheduler-add__input--spacing::placeholder {
+    padding-left: 50px;
+}
+
+/* WEEK CONTAINER */
+
+.week-container {
+    overflow-y: scroll;
+}
