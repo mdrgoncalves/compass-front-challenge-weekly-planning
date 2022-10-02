@@ -1,0 +1,44 @@
+:root {
+    --default-font: 'Nunito', sans-serif;
+    --secondary-font: 'Poppins', sans-serif;
+
+    --header-desc-color: #6688FF;
+    --green-button-color: #2CBE82;
+    --red-button-color: #DA2B40;
+    --darkred-button-color: #98031E;
+    --white-color: #FFFFFF;
+    --input-placeholder-color: #3B3E45;
+
+    --orange-color: #FFA246;
+    --green-color: #35E185;
+    --blue-color: #6688FF;
+    --purple-color: #B266FF;
+    --lighblue-color: #66D1FF;
+    --pink-color: #FF66D4;
+    --red-color: #FF6666;
+    --conflict-color: #F55D5D;
+
+    --orange-color-opacity: rgb(255, 162, 70, 0.4);
+    --green-color-opacity: rgb(53, 225, 133, 0.4);
+    --blue-color-opacity: rgb(102, 136, 255, 0.4);
+    --purple-color-opacity: rgb(178, 102, 255, 0.4);
+    --lighblue-color-opacity: rgb(102, 209, 255, 0.4);
+    --pink-color-opacity: rgb(255, 102, 212, 0.4);
+    --red-color-opacity: rgb(255, 102, 102, 0.4);
+    --conflict-color-opacity: rgb(245, 93, 93, 0.4);
+
+    --scroll-color: #DCDFE3;
+}
+
+html {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25rem;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 1440px;
+    max-height: 1024px;
+    font-family: var(--default-font);
+}
