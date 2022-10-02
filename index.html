@@ -39,6 +39,43 @@
         </div>
     </header>
 
+    <form class="scheduler-add mt-4">
+        <div class="form-row justify-content-around align-items-center">
+
+            <div class="col-4 ml-4">
+                <input type="text" class="form-control scheduler-add__input scheduler-add__input--spacing scheduler-add__task" placeholder="Atividade">
+            </div>
+
+            <div class="col-2">
+                <select class="custom-select scheduler-add__input scheduler-add__day" id="week">
+                    <option selected>Segunda-feira</option>
+                    <option value="terça-feira">Terça-feira</option>
+                    <option value="quarta-feira">Quarta-feira</option>
+                    <option value="quinta-feira">Quinta-feira</option>
+                    <option value="sexta-feira">Sexta-feira</option>
+                    <option value="sabado">Sábado</option>
+                    <option value="domingo">Domingo</option>
+                </select>
+            </div>
+
+            <div class="col-1">
+                <input type="time" class="form-control scheduler-add__input scheduler-add__time">
+            </div>
+
+            <div class="col-auto mr-5">
+                <button type="button" class="btn button--green scheduler-add__submit mr-3">
+                    <i class="fa-regular fa-plus"></i>
+                    Adicionar Atividade
+                </button>
+                <button type="button" class="btn button--red scheduler-add__delete">
+                    <i class="fa-solid fa-minus"></i>
+                    Excluir Todos
+                </button>
+            </div>
+            
+        </div>
+    </form>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
