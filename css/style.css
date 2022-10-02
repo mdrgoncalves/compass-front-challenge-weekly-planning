@@ -308,3 +308,55 @@ li {
         height: 15px;
     }
 }
+
+/* COLORS SPECIFICS */
+
+.task-card__monday {
+    background-color: var(--orange-color);
+}
+.task-card__tuesday {
+    background-color: var(--green-color);
+}
+.task-card__wednesday {
+    background-color: var(--blue-color);
+}
+.task-card__thursday {
+    background-color: var(--purple-color);
+}
+.task-card__friday {
+    background-color: var(--lighblue-color);
+}
+.task-card__saturday {
+    background-color: var(--pink-color);
+}
+.task-card__sunday {
+    background-color: var(--red-color);
+}
+.task-card__conflict {
+    background-color: var(--conflict-color);
+}
+
+.time-block__monday {
+    background-color: var(--orange-color-opacity);
+}
+.time-block__tuesday {
+    background-color: var(--green-color-opacity);
+}
+.time-block__wednesday {
+    background-color: var(--blue-color-opacity);
+}
+.time-block__thursday {
+    background-color: var(--purple-color-opacity);
+}
+.time-block__friday {
+    background-color: var(--lighblue-color-opacity);
+}
+.time-block__saturday {
+    background-color: var(--pink-color-opacity);
+}
+.time-block__sunday {
+    background-color: var(--red-color-opacity);
+}
+.time-block__conflict {
+    background-color: var(--conflict-color-opacity);
+}
