@@ -122,3 +122,89 @@ body {
 .week-container {
     overflow-y: scroll;
 }
+
+/* WEEK NAV */
+
+li {
+    list-style-type: none;
+}
+
+.hour-label {
+    font-size: 1.0625rem;
+    height: 4.688rem;
+    width: 5.313rem;
+    -webkit-box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25); 
+    box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25);
+    border-radius: 10px;    
+}
+
+.btn-day {
+    color: var(--white-color);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    width: 9.375rem;
+    -webkit-border-top-left-radius: 9px;
+    -webkit-border-top-right-radius: 9px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    border: none;
+}
+
+@media screen and (max-width: 1439px) {
+    .btn-day {
+        width: auto;
+    }
+}
+
+.btn-day:hover {
+    width: 11.875rem;
+}
+
+.btn-day--monday {
+    background-color: var(--orange-color);
+}
+.btn-day--monday:hover {
+    background-color: var(--orange-color);
+}
+
+.btn-day--tuesday {
+    background-color: var(--green-color);
+}
+.btn-day--tuesday:hover {
+    background-color: var(--green-color);
+}
+
+.btn-day--wednesday {
+    background-color: var(--blue-color);
+}
+.btn-day--wednesday:hover {
+    background-color: var(--blue-color);
+}
+
+.btn-day--thursday {
+    background-color: var(--purple-color);
+}
+.btn-day--thursday:hover {
+    background-color: var(--purple-color);
+}
+
+.btn-day--friday {
+    background-color: var(--lighblue-color);
+}
+.btn-day--friday:hover {
+    background-color: var(--lighblue-color);
+}
+
+.btn-day--saturday {
+    background-color: var(--pink-color);
+}
+.btn-day--saturday:hover {
+    background-color: var(--pink-color);
+}
+
+.btn-day--sunday {
+    background-color: var(--red-color);
+}
+.btn-day--sunday:hover {
+    background-color: var(--red-color);
+}
