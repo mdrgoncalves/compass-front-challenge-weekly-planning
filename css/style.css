@@ -271,3 +271,40 @@ li {
     font-size: 0.875rem;
     border-radius: 4px;
 }
+
+/* UTILITIES */
+
+.top-scroll {
+    overflow: auto;
+    overflow-y: hidden;
+    width: 80rem;
+    height: 1px;
+    position: absolute;
+    top: -4vh;
+    right: 0;
+}
+
+.conflict-line {
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.conflict-line::after {
+    content: '';
+    display: inline-block;
+    height: 5px;
+    width: 94vw;
+    background-color: red;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+
+@supports (-webkit-appearance: none) {
+    .top-scroll {
+        height: 15px;
+    }
+}
