@@ -208,3 +208,66 @@ li {
 .btn-day--sunday:hover {
     background-color: var(--red-color);
 }
+
+/* PLAN LIST */ 
+
+.task-column { 
+    overflow: hidden; 
+}
+
+.task-list {
+    position: relative;
+    height: 65vh;
+}
+
+.task-list::before {
+    content: "";
+    position: absolute;
+    background-image: url(../img/logo-compass.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: contain;
+    width: 40%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    margin-left: 60%;
+}
+
+.hour-label--task {
+    height: 5.313rem;
+    background-color: var(--blue-color);
+}
+
+.task-card {
+    height: 5.313rem;
+    width: 32rem;
+    -webkit-box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25); 
+    box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25);
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    background: linear-gradient(112.83deg, rgba(228, 240, 248, 0.42) 0%, rgba(255, 255, 255, 0.336) 110.84%);
+}
+
+.task-card__color {
+    height: 5.313rem;
+    width: 2rem;
+    background-color: var(--blue-color);
+    -webkit-border-top-left-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.task-card__text {
+    width: 30rem;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+}
+
+.task-card__button {
+    background-color: var(--darkred-button-color);
+    color: var(--white-color);
+    font-weight: 700;
+    font-size: 0.875rem;
+    border-radius: 4px;
+}
