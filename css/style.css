@@ -111,6 +111,13 @@ body {
     border-color: var(--green-button-color);
     color: var(--input-placeholder-color);
     font-size: 0.875rem;
+    border-radius: 10px;
+}
+
+.scheduler-add__day,
+.scheduler-add__time::-webkit-calendar-picker-indicator {
+    background: var(--white-color) url(../img/chevron-down.svg) no-repeat right 0.75rem;
+    background-position: 50% center;
 }
 
 .scheduler-add__input--spacing::placeholder {
@@ -156,8 +163,9 @@ li {
     }
 }
 
-.btn-day:hover {
+.btn-day:focus {
     width: 11.875rem;
+    box-shadow: none;
 }
 
 .btn-day--monday {
