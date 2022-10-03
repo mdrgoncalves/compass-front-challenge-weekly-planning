@@ -16,6 +16,7 @@ const taskColumn = document.querySelectorAll('.task-column');
 //Functions
 
 /* Time Functions */
+
 function setTime() {
     let dateTime = new Date();
     let formattedDate = dateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -324,6 +325,20 @@ function createConflictLine(element, elementInitial) {
     daySelectedReference.appendChild(conflictLine);
 }
 
+/* Save/Delete LocalStorage Functions */
+
+function getTimeColumnArr() {
+    let timeColumn = document.querySelectorAll('.time-column');
+    let timeColumnArr = Array.from(timeColumn);
+    return timeColumnArr;
+}
+
+function getTaskColumnArr() {
+    let taskColumn = document.querySelectorAll('.task-column');
+    let taskColumnArr = Array.from(taskColumn);
+    return taskColumnArr;
+}
+
 
 //Event Listeners
 
@@ -357,4 +372,36 @@ taskDeleteAll.addEventListener('click', () => {
     let taskDayCol = document.querySelector('.collapse.show .task-column');
     timeDayCol.innerHTML = '';
     taskDayCol.innerHTML = '';
+});
+
+saveLocalStorage.addEventListener('click', () => {
+    let timeColumnArr = getTimeColumnArr();
+    let taskColumnArr = getTaskColumnArr();
+
+    let timeColumnDay = timeColumnArr.map((day) => {
+        return day.innerHTML;
+    });
+
+    let taskColumnDay = taskColumnArr.map((day) => {
+        return day.innerHTML;
+    });
+
+    localStorage.setItem('timeColumnDay', JSON.stringify(timeColumnDay));
+    localStorage.setItem('taskColumnDay', JSON.stringify(taskColumnDay));
+});
+
+deleteLocalStorage.addEventListener('click', () => {
+    let timeColumnArr = getTimeColumnArr();
+    let taskColumnArr = getTaskColumnArr();
+
+    timeColumnArr.forEach((day) => {
+        day.innerHTML = '';
+    });
+
+    taskColumnArr.forEach((day) => {
+        day.innerHTML = '';
+    });
+
+    localStorage.removeItem('timeColumnDay');
+    localStorage.removeItem('taskColumnDay');
 });
