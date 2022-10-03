@@ -15,6 +15,30 @@ const taskColumn = document.querySelectorAll('.task-column');
 
 //Functions
 
+/* Initial Load Functions */ 
+
+document.addEventListener("DOMContentLoaded", function() {
+    loadLocalStorage();
+});
+
+function loadLocalStorage() {
+    let timeColumnArr = getTimeColumnArr();
+    let taskColumnArr = getTaskColumnArr();
+
+    let timeColumnDay = JSON.parse(localStorage.getItem('timeColumnDay'));
+    let taskColumnDay = JSON.parse(localStorage.getItem('taskColumnDay'));
+
+    if (timeColumnDay !== null && taskColumnDay !== null) {
+        timeColumnArr.forEach((day, index) => {
+            day.innerHTML = timeColumnDay[index];
+        });
+    
+        taskColumnArr.forEach((day, index) => {
+            day.innerHTML = taskColumnDay[index];
+        });
+    }
+}
+
 /* Time Functions */
 
 function setTime() {
