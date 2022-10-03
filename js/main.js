@@ -351,3 +351,10 @@ document.addEventListener('click', function(e) {
         }
     }
 }, false);
+
+taskDeleteAll.addEventListener('click', () => {
+    let timeDayCol = document.querySelector('.collapse.show .time-column');
+    let taskDayCol = document.querySelector('.collapse.show .task-column');
+    timeDayCol.innerHTML = '';
+    taskDayCol.innerHTML = '';
+});
