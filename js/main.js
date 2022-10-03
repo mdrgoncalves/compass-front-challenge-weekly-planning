@@ -363,16 +363,33 @@ function getTaskColumnArr() {
     return taskColumnArr;
 }
 
+/* Input Functions */
+
+function applyInputError() {
+    taskDesc.placeholder = 'Campo inserido incorretamente!';
+    taskDesc.classList.add('input__placeholder--error');
+}
+
 
 //Event Listeners
 
 taskAdd.addEventListener('click', () => {
+    if (taskDesc.value.trim() === '') {
+        applyInputError()
+        return;
+    }
+
     let timeLabel = rowByDay('.hour-label--task');
 
     let newTimeRow = createTimeBlock();
 
     createTimeRow(timeLabel, newTimeRow);
 });
+
+taskDesc.addEventListener('focus', () => {
+    taskDesc.classList.remove('input__placeholder--error');
+    taskDesc.placeholder = 'Atividade';
+})
 
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('task-card__button')) {

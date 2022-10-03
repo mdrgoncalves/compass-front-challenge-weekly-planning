@@ -360,3 +360,11 @@ li {
 .time-block__conflict {
     background-color: var(--conflict-color-opacity);
 }
+
+.input__placeholder--error {
+    border-color: red;
+}
+
+.input__placeholder--error::placeholder {
+    color: red;
+}
