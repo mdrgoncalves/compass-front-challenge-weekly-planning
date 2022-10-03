@@ -12,8 +12,10 @@ const taskDelete = document.querySelectorAll('.task-card__button');
 const timeColumns = document.querySelectorAll('.time-column');
 const taskColumn = document.querySelectorAll('.task-column');
 
+
 //Functions
 
+/* Time Functions */
 function setTime() {
     let dateTime = new Date();
     let formattedDate = dateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -32,5 +34,39 @@ function setDate() {
     timeDisplay.textContent = `${dateDay} de ${dateMonth} de ${dateYear}`;
 }
 setInterval(setDate, 1000);
+
+/* Top Scroll Functions */
+
+function doubleScroll(element) {
+    const scrollbar = document.createElement('div');
+    scrollbar.appendChild(document.createElement('div'));
+    scrollbar.classList.add('top-scroll');
+    scrollbar.firstChild.style.width= element.scrollWidth+'px';
+    scrollbar.firstChild.style.height= '1px';
+    scrollbar.firstChild.appendChild(document.createTextNode('\xA0'));
+    scrollbar.onscroll = function() {
+        element.scrollLeft = scrollbar.scrollLeft;
+    };
+    element.onscroll = function() {
+        scrollbar.scrollLeft = element.scrollLeft;
+    };
+    element.parentNode.insertBefore(scrollbar, element);
+}
+
+function applyTopScroll() {
+    const taskColumns = document.querySelectorAll('.task-column');
+
+    taskColumns.forEach((column) => {
+        doubleScroll(column);
+    });
+    
+    const taskLists = document.querySelectorAll('.task-container');
+    taskLists.forEach((list) => {
+        list.classList.add('collapse');
+    });
+    
+}
+applyTopScroll();
+
 
 //Event Listeners
