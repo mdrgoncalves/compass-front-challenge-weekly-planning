@@ -68,5 +68,180 @@ function applyTopScroll() {
 }
 applyTopScroll();
 
+/* Task Functions */
+
+function rowByDay(DOMClass) {
+    let daySelected = getDayIdSelected();
+    let timeLabel = document.querySelectorAll(`${daySelected} ${DOMClass}`);
+    return timeLabel;
+}
+
+function getDayIdSelected() {
+    let dayIndex = returnDayIndex();
+    const days = ['#monday', '#tuesday', '#wednesday', '#thursday', '#friday', '#saturday', '#sunday'];
+    let daySelected = days[dayIndex];
+    return daySelected;
+}
+
+function returnDayIndex() {
+    const daysOfWeek = {
+        0: 'segunda-feira',
+        1: 'terça-feira',
+        2: 'quarta-feira',
+        3: 'quinta-feira',
+        4: 'sexta-feira',
+        5: 'sabado',
+        6: 'domingo'
+    }
+
+    let dayIndex = 0;
+
+    Object.keys(daysOfWeek).forEach((index) => {
+        let taskDayValue = taskDay.value.toLowerCase();
+
+        if (taskDayValue == daysOfWeek[index]) {
+            dayIndex = index;
+        }
+    });
+
+    return dayIndex;
+}
+
+function createTimeBlock() {
+    let newTaskTime = taskTime.value;
+    let newTaskTimeString = newTaskTime.replace(':','h') + 'm';
+
+    let newTimeParagraph = `
+        <p class="m-0">${newTaskTimeString}</p>
+    `;
+
+    let daySelected = getDayClassSelected();
+
+    let newTimeRow = createRow(newTimeParagraph, 'row', 'mb-3', 'hour-label', 'hour-label--task', 'd-flex', 'align-items-center', 'justify-content-center', `time-block__${daySelected}`);
+
+    return newTimeRow;
+}
+
+function createRow(innerContent, ...classes) {
+    let newTimeRow = document.createElement('div');
+    newTimeRow.classList.add(...classes);
+    newTimeRow.innerHTML = innerContent;
+    return newTimeRow;
+}
+
+function getDayClassSelected() {
+    const daysOfWeek = {
+        0: 'monday',
+        1: 'tuesday',
+        2: 'wednesday',
+        3: 'thursday',
+        4: 'friday',
+        5: 'saturday',
+        6: 'sunday'
+    }
+
+    let daySelectedIndex = returnDayIndex();
+    let daySelected = daysOfWeek[daySelectedIndex]; 
+    return daySelected;
+}
+
+function createTimeRow(timeArrDOM, rowAdd) {
+    let timeArr = transformTimeInArray(timeArrDOM);
+    let newTaskTimeFormatted = formatTime(taskTime.value);
+
+    let timeColumnDay = getDaySection();
+
+    let biggerTime = timeArr.find((time) => {
+        return formatTime(time.outerText) > newTaskTimeFormatted;
+    });
+
+    let smallerTimer = timeArr.findLast((time) => {
+        return formatTime(time.outerText) < newTaskTimeFormatted;
+    });
+
+    let equalTimer = timeArr.find((time) => {
+        return formatTime(time.outerText) == newTaskTimeFormatted;
+    });
+
+    let biggerTimeIndex = timeArr.indexOf(biggerTime);
+    let smallerTimeIndex = timeArr.indexOf(smallerTimer);
+    let equalTimeIndex = timeArr.indexOf(equalTimer);
+
+    if (timeColumnDay.innerHTML == '') {
+        timeColumnDay.append(rowAdd);
+        insertTask(0);  
+    } else if (equalTimer) {
+        setConflict(equalTimeIndex);
+    } else if (biggerTime) {
+        timeColumnDay.insertBefore(rowAdd, biggerTime);
+        insertTask(biggerTimeIndex);
+    } else if (smallerTimer) {
+        timeColumnDay.insertBefore(rowAdd, smallerTimer.nextSibling);
+        insertTask(smallerTimeIndex + 1);
+    }
+}
+
+function formatTime(time) {
+    return Number(time.replace('h', '').replace('m', '').replace(':', ''));
+}
+
+function getDaySection() {
+    let dayIndex = returnDayIndex();
+    let timeColumnDay = timeColumns[dayIndex];
+    return timeColumnDay;
+}
+
+function transformTimeInArray(timeArrDOM) {
+    let timeArr = [];
+
+    timeArrDOM.forEach((time) => {
+        timeArr.push(time);
+    });
+
+    return timeArr;
+};
+
+function insertTask(timeIndex) {
+    let taskRows = rowByDay('.task-row');
+    let dayIndex = returnDayIndex();
+    let newTaskContent = createCard();
+    let newTaskRow = createRow(newTaskContent, 'task-row', 'row', 'd-flex', 'flex-nowrap');
+
+    taskColumn[dayIndex].insertBefore(newTaskRow, taskRows[timeIndex]);
+}
+
+function createCard(isConflict = false) {
+    let daySelected = isConflict ? 'conflict' : getDayClassSelected();
+    let newTaskDesc = taskDesc.value
+
+    let newTaskContent = isConflict ? `
+        <div class="task-card col-5 mb-3 ml-3 p-0 task-card d-flex justify-content-center">
+            <div class="task-card__color task-card__${daySelected}"></div>
+            <p class="task-card__text m-0 pl-3 pt-3">${newTaskDesc}</p>
+            <div class="pr-2 pt-2 align-self-start">
+                <button class="task-card__button btn">Apagar</button>
+            </div>
+        </div>
+        ` : `
+        <div class="task-card col-5 mb-3 p-0 task-card d-flex justify-content-center">
+            <div class="task-card__color task-card__${daySelected}"></div>
+            <p class="task-card__text m-0 pl-3 pt-3">${newTaskDesc}</p>
+            <div class="pr-2 pt-2 align-self-start">
+                <button class="task-card__button btn">Apagar</button>
+            </div>
+        </div>
+    `;
+
+    return newTaskContent;
+}
+
 
 //Event Listeners
+
+taskAdd.addEventListener('click', () => {
+    let timeLabel = rowByDay('.hour-label--task');
+
+    let newTimeRow = createTimeBlock();
+
+    createTimeRow(timeLabel, newTimeRow);
+});
