@@ -235,6 +235,95 @@ function createCard(isConflict = false) {
     return newTaskContent;
 }
 
+/* Remove and Conflict Functions */
+
+function removeIsEmpty(cardRow) {
+    let hourLabel = document.querySelectorAll('.hour-label--task');
+
+    let taskRowIndex = findIndexInTaskRow(cardRow);
+
+    if (cardRow.textContent.trim() === '') {
+        hourLabel[taskRowIndex].remove();  
+    }
+}
+
+function findIndexInTaskRow(cardRow) {
+    let taskRow = document.querySelectorAll('.task-row');
+    let taskRowIndex = Array.prototype.indexOf.call(taskRow, cardRow);
+    return taskRowIndex;
+}
+
+function conflictResolve(cardRow) {
+    let containsCards = [];
+
+    for (let i = 0; i < cardRow.childNodes.length; i++) {
+        if (cardRow.childNodes[i].nodeName == 'DIV') {
+            containsCards.push(cardRow.childNodes[i]);
+        }
+    }
+
+    backToNormal(containsCards, cardRow);
+}
+
+function backToNormal(cardsArray, cardRow) {
+    let taskRowIndex = findIndexInTaskRow(cardRow);
+    let conflictLines = document.querySelectorAll('.conflict-line');
+
+    let taskRow = cardRow.parentNode;
+    let taskCards = taskRow.querySelectorAll('.task-row');
+    let taskCardIndex = Array.prototype.indexOf.call(taskCards, cardRow);
+    let timeColumn = taskRow.parentNode.querySelectorAll('.time-column .hour-label--task');
+
+    if (cardsArray.length === 1) {
+        if (conflictLines.length > 1) {
+            conflictLines[taskRowIndex].remove();
+        } else {
+            conflictLines[0].remove();
+        }
+
+        let remainingCard = cardRow.querySelector('.task-card .task-card__color');
+        remainingCard.classList.remove('task-card__conflict');
+        timeColumn[taskCardIndex].classList.remove('time-block__conflict');
+    }
+}
+
+function setConflict(timeIndex) {
+    insertTaskSameCol(timeIndex);
+    let taskCardColor = rowByDay('.task-row');
+    let timerLabel = rowByDay('.time-column .hour-label--task');
+    let cardsColor = taskCardColor[timeIndex].querySelectorAll('.task-card__color');
+    
+    cardsColor.forEach((card) => {
+        card.classList.add('task-card__conflict');
+    });
+    
+    timerLabel[timeIndex].classList.add('time-block__conflict');
+
+    createConflictLine(timerLabel[timeIndex], timerLabel[0]);	
+}
+
+function insertTaskSameCol(timeIndex) {
+    let taskRows = rowByDay('.task-row');
+    let newTaskContent = createCard(true);
+    taskRows[timeIndex].insertAdjacentHTML('beforeend', newTaskContent);
+}
+
+function createConflictLine(element, elementInitial) {
+    let elementReference = element.getBoundingClientRect();
+    let elementHeight = element.offsetHeight * 0.5;
+    let linePosition = elementReference.top;
+    let timeBlockInitial = elementInitial.getBoundingClientRect();
+    let timeBlockInitialPosition = timeBlockInitial.top - elementHeight;
+
+    let idDaySelected = getDayIdSelected();
+    let daySelectedReference = document.querySelector(`${idDaySelected} .task-list`);
+
+    let conflictLine = document.createElement('div');
+    conflictLine.classList.add('conflict-line');
+    conflictLine.style.top = `${linePosition - timeBlockInitialPosition}px`;
+    daySelectedReference.appendChild(conflictLine);
+}
+
 
 //Event Listeners
 
@@ -245,3 +334,20 @@ taskAdd.addEventListener('click', () => {
 
     createTimeRow(timeLabel, newTimeRow);
 });
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('task-card__button')) {
+        let taskCard = e.target.parentNode.parentNode;
+
+        let cardRow = taskCard.parentNode;
+        let isConflict = taskCard.children[0].classList.contains('task-card__conflict');
+
+        taskCard.remove();
+        
+        removeIsEmpty(cardRow);
+
+        if (isConflict) {
+            conflictResolve(cardRow);
+        }
+    }
+}, false);
