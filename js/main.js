@@ -19,6 +19,7 @@ const taskColumn = document.querySelectorAll('.task-column');
 
 document.addEventListener("DOMContentLoaded", function() {
     loadLocalStorage();
+    collapseAll();
 });
 
 function loadLocalStorage() {
@@ -37,6 +38,13 @@ function loadLocalStorage() {
             day.innerHTML = taskColumnDay[index];
         });
     }
+}
+
+function collapseAll() {
+    const taskLists = document.querySelectorAll('.task-container');
+    taskLists.forEach((list) => {
+        list.classList.add('collapse');
+    });
 }
 
 /* Time Functions */
@@ -84,14 +92,7 @@ function applyTopScroll() {
     taskColumns.forEach((column) => {
         doubleScroll(column);
     });
-    
-    const taskLists = document.querySelectorAll('.task-container');
-    taskLists.forEach((list) => {
-        list.classList.add('collapse');
-    });
-    
 }
-applyTopScroll();
 
 /* Task Functions */
 
@@ -324,7 +325,8 @@ function setConflict(timeIndex) {
     
     timerLabel[timeIndex].classList.add('time-block__conflict');
 
-    createConflictLine(timerLabel[timeIndex], timerLabel[0]);	
+    createConflictLine(timerLabel[timeIndex], timerLabel[0]);
+    applyTopScroll();	
 }
 
 function insertTaskSameCol(timeIndex) {
