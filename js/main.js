@@ -21,6 +21,36 @@ document.addEventListener("DOMContentLoaded", function() {
     loadLocalStorage();
     collapseAll();
 });
+addRowforScroll();
+
+function addRowforScroll() {
+    let taskColumns = document.querySelectorAll('.task-column');
+    let cardRow = document.createElement('div');
+    cardRow.classList.add('task-row', 'row', 'd-flex', 'flex-nowrap');
+
+    let newTaskContent = `
+        <div class="task-card col-5 mb-3 mr-3 p-0 task-card d-flex justify-content-center">
+            <div class="task-card__color task-card__monday"></div>
+            <p class="task-card__text m-0 pl-3 pt-3">Teste</p>
+            <div class="pr-2 pt-2 align-self-start">
+                <button class="task-card__button btn">Apagar</button>
+            </div>
+        </div>`;
+
+    cardRow.insertAdjacentHTML('beforeend', newTaskContent);
+    cardRow.insertAdjacentHTML('beforeend', newTaskContent);
+    cardRow.insertAdjacentHTML('beforeend', newTaskContent);
+
+    taskColumns.forEach((column) => {
+        column.appendChild(cardRow.cloneNode(true));
+    });
+
+    applyTopScroll();
+
+    taskColumns.forEach((column) => {
+        column.removeChild(column.lastChild);
+    });
+}
 
 function loadLocalStorage() {
     let timeColumnArr = getTimeColumnArr();
