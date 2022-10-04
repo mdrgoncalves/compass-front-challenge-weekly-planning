@@ -394,6 +394,9 @@ taskAdd.addEventListener('click', () => {
     let newTimeRow = createTimeBlock();
 
     createTimeRow(timeLabel, newTimeRow);
+
+    taskDesc.value = '';
+    taskTime.value = '00:00';
 });
 
 taskDesc.addEventListener('focus', () => {
