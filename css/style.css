@@ -28,6 +28,10 @@
     --conflict-color-opacity: rgb(245, 93, 93, 0.4);
 
     --scroll-color: #DCDFE3;
+    --conflict-line-color: #FF6D6D;
+
+    --box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25);
+    --task-card-background: linear-gradient(112.83deg, rgba(228, 240, 248, 0.42) 0%, rgba(255, 255, 255, 0.336) 110.84%);
 
     --logo-height: 100%;
 }
@@ -62,8 +66,12 @@ body {
 /* HEADER */
 
 .header {
-    -webkit-box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25); 
-    box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25);
+    -webkit-box-shadow: var(--box-shadow); 
+    box-shadow: var(--box-shadow);
+    -webkit-border-bottom-right-radius: 35px;
+    -webkit-border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
 }
 
 .header__content {
@@ -142,8 +150,8 @@ li {
     font-size: 1.0625rem;
     height: 4.688rem;
     width: 5.313rem;
-    -webkit-box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25); 
-    box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25);
+    -webkit-box-shadow: var(--box-shadow); 
+    box-shadow: var(--box-shadow);
     border-radius: 10px;    
 }
 
@@ -227,7 +235,7 @@ li {
 
 .task-list {
     position: relative;
-    height: 65vh;
+    height: 66vmin;
 }
 
 .task-list::before {
@@ -251,16 +259,16 @@ li {
 .task-card {
     height: 5.313rem;
     width: 32rem;
-    -webkit-box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25); 
-    box-shadow: 0px 4px 24px 0px rgba(168,168,168,0.25);
+    -webkit-box-shadow: var(--box-shadow); 
+    box-shadow: var(--box-shadow);
     -webkit-border-radius: 15px;
     border-radius: 15px;
-    background: linear-gradient(112.83deg, rgba(228, 240, 248, 0.42) 0%, rgba(255, 255, 255, 0.336) 110.84%);
+    background: var(--task-card-background);
 }
 
 .task-card__color {
     height: 5.313rem;
-    width: 2rem;
+    width: 0.875rem;
     background-color: var(--blue-color);
     -webkit-border-top-left-radius: 15px;
     -webkit-border-bottom-left-radius: 15px;
@@ -301,7 +309,7 @@ li {
     height: 22px;
     width: 22px;
     border-radius: 50%;
-    background-color: red;
+    background-color: var(--conflict-line-color);
 }
 
 .conflict-line::after {
@@ -309,7 +317,7 @@ li {
     display: inline-block;
     height: 5px;
     width: 145vmin;
-    background-color: red;
+    background-color: var(--conflict-line-color);
     position: absolute;
     left: 20px;
     top: 10px;
