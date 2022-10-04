@@ -19,4 +19,5 @@ The following tools were used in the construction of the project:
 
 -   **[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)**
 -   **[CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)**
+-   **[Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)**
 -   **[Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)**
