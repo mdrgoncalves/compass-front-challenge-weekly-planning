@@ -47,6 +47,24 @@ function collapseAll() {
     });
 }
 
+/* Image Functions */
+let numberTimeBlocks = 0;
+function updateImage() {
+    let timeBlocks = document.querySelectorAll('.show .hour-label');
+    let taskList = document.querySelector(".show .task-list")
+
+    let numberBlock100VH = 6;
+
+    console.log((timeBlocks.length >= numberBlock100VH + 1));
+
+    if (timeBlocks.length === numberBlock100VH) {
+        taskList.style.setProperty("--logo-height", `110%`);
+    } else if (timeBlocks.length >= numberBlock100VH + 1) {
+        numberTimeBlocks += 6.4;
+        taskList.style.setProperty("--logo-height", `calc(110% + ${numberTimeBlocks}rem)`);
+    }
+}
+
 /* Time Functions */
 
 function setTime() {
@@ -202,9 +220,11 @@ function createTimeRow(timeArrDOM, rowAdd) {
         timeColumnDay.insertBefore(rowAdd, biggerTime);
         insertTask(biggerTimeIndex);
         updateLinePosition();
+        updateImage();
     } else if (smallerTimer) {
         timeColumnDay.insertBefore(rowAdd, smallerTimer.nextSibling);
         insertTask(smallerTimeIndex + 1);
+        updateImage(); 
     }
 }
 

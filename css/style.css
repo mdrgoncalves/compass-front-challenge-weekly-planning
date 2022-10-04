@@ -28,6 +28,8 @@
     --conflict-color-opacity: rgb(245, 93, 93, 0.4);
 
     --scroll-color: #DCDFE3;
+
+    --logo-height: 100%;
 }
 
 * ::-webkit-scrollbar {
@@ -236,7 +238,7 @@ li {
     background-position: bottom right;
     background-size: contain;
     width: 40%;
-    height: 100%;
+    height: var(--logo-height);
     aspect-ratio: 1 / 1;
     margin-left: 60%;
 }
