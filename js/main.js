@@ -201,6 +201,7 @@ function createTimeRow(timeArrDOM, rowAdd) {
     } else if (biggerTime) {
         timeColumnDay.insertBefore(rowAdd, biggerTime);
         insertTask(biggerTimeIndex);
+        updateLinePosition();
     } else if (smallerTimer) {
         timeColumnDay.insertBefore(rowAdd, smallerTimer.nextSibling);
         insertTask(smallerTimeIndex + 1);
@@ -240,23 +241,14 @@ function createCard(isConflict = false) {
     let daySelected = isConflict ? 'conflict' : getDayClassSelected();
     let newTaskDesc = taskDesc.value
 
-    let newTaskContent = isConflict ? `
-        <div class="task-card col-5 mb-3 ml-3 p-0 task-card d-flex justify-content-center">
+    let newTaskContent = `
+        <div class="task-card col-5 mb-3 mr-3 p-0 task-card d-flex justify-content-center">
             <div class="task-card__color task-card__${daySelected}"></div>
             <p class="task-card__text m-0 pl-3 pt-3">${newTaskDesc}</p>
             <div class="pr-2 pt-2 align-self-start">
                 <button class="task-card__button btn">Apagar</button>
             </div>
-        </div>
-        ` : `
-        <div class="task-card col-5 mb-3 p-0 task-card d-flex justify-content-center">
-            <div class="task-card__color task-card__${daySelected}"></div>
-            <p class="task-card__text m-0 pl-3 pt-3">${newTaskDesc}</p>
-            <div class="pr-2 pt-2 align-self-start">
-                <button class="task-card__button btn">Apagar</button>
-            </div>
-        </div>
-    `;
+        </div>`;
 
     return newTaskContent;
 }
@@ -292,20 +284,17 @@ function conflictResolve(cardRow) {
 }
 
 function backToNormal(cardsArray, cardRow) {
-    let taskRowIndex = findIndexInTaskRow(cardRow);
-    let conflictLines = document.querySelectorAll('.conflict-line');
-
     let taskRow = cardRow.parentNode;
     let taskCards = taskRow.querySelectorAll('.task-row');
     let taskCardIndex = Array.prototype.indexOf.call(taskCards, cardRow);
     let timeColumn = taskRow.parentNode.querySelectorAll('.time-column .hour-label--task');
 
     if (cardsArray.length === 1) {
-        if (conflictLines.length > 1) {
-            conflictLines[taskRowIndex].remove();
-        } else {
-            conflictLines[0].remove();
-        }
+        let conflictLines = timeColumn[taskCardIndex].querySelectorAll('.conflict-line')
+
+        conflictLines.forEach((line) => {
+            line.remove();
+        });
 
         let remainingCard = cardRow.querySelector('.task-card .task-card__color');
         remainingCard.classList.remove('task-card__conflict');
@@ -322,11 +311,15 @@ function setConflict(timeIndex) {
     cardsColor.forEach((card) => {
         card.classList.add('task-card__conflict');
     });
+
+    applyTopScroll();
+
+    if (timerLabel[timeIndex].classList.contains('time-block__conflict')) {
+        return;
+    }
     
     timerLabel[timeIndex].classList.add('time-block__conflict');
-
     createConflictLine(timerLabel[timeIndex], timerLabel[0]);
-    applyTopScroll();	
 }
 
 function insertTaskSameCol(timeIndex) {
@@ -340,15 +333,30 @@ function createConflictLine(element, elementInitial) {
     let elementHeight = element.offsetHeight * 0.5;
     let linePosition = elementReference.top;
     let timeBlockInitial = elementInitial.getBoundingClientRect();
-    let timeBlockInitialPosition = timeBlockInitial.top - elementHeight;
-
-    let idDaySelected = getDayIdSelected();
-    let daySelectedReference = document.querySelector(`${idDaySelected} .task-list`);
+    let timeBlockInitialPosition = timeBlockInitial.top - elementHeight; 
 
     let conflictLine = document.createElement('div');
     conflictLine.classList.add('conflict-line');
     conflictLine.style.top = `${linePosition - timeBlockInitialPosition}px`;
-    daySelectedReference.appendChild(conflictLine);
+    element.insertAdjacentElement('afterbegin', conflictLine);
+}
+
+function updateLinePosition() {
+    let timeBlocks = rowByDay('.hour-label--task');
+    let timeColumn = rowByDay('.time-column');
+
+    timeBlocks.forEach((timeBlock) => {
+        if (timeBlock.classList.contains('time-block__conflict')) {
+            let conflictLine = timeBlock.querySelector('.conflict-line');
+            let timeBlockReference = timeBlock.getBoundingClientRect();
+            let timeBlockHeight = timeBlock.offsetHeight * 0.5;
+            let timeBlockPosition = timeBlockReference.top;
+            let timeBlockInitial = timeColumn[0].getBoundingClientRect();
+            let timeBlockInitialPosition = timeBlockInitial.top - timeBlockHeight;
+
+            conflictLine.style.top = `${timeBlockPosition - timeBlockInitialPosition}px`;
+        }
+    });
 }
 
 /* Save/Delete LocalStorage Functions */

@@ -294,6 +294,8 @@ li {
 
 .conflict-line {
     position: absolute;
+    left: 0;
+    z-index: 1;
     height: 22px;
     width: 22px;
     border-radius: 50%;
@@ -304,7 +306,7 @@ li {
     content: '';
     display: inline-block;
     height: 5px;
-    width: 94vw;
+    width: 145vmin;
     background-color: red;
     position: absolute;
     left: 20px;
