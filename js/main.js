@@ -256,12 +256,12 @@ function createCard(isConflict = false) {
 /* Remove and Conflict Functions */
 
 function removeIsEmpty(cardRow) {
-    let hourLabel = document.querySelectorAll('.hour-label--task');
-
-    let taskRowIndex = findIndexInTaskRow(cardRow);
+    let timeLabel = document.querySelectorAll('.show .hour-label');
+    let taskRow = document.querySelectorAll('.show .task-row');
+    let cardRowIndex = Array.prototype.indexOf.call(taskRow, cardRow);
 
     if (cardRow.textContent.trim() === '') {
-        hourLabel[taskRowIndex].remove();  
+        timeLabel[cardRowIndex].remove();  
     }
 }
 
@@ -408,12 +408,14 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('task-card__button')) {
         let taskCard = e.target.parentNode.parentNode;
 
+        let bunga = e;
+
         let cardRow = taskCard.parentNode;
         let isConflict = taskCard.children[0].classList.contains('task-card__conflict');
 
         taskCard.remove();
         
-        removeIsEmpty(cardRow);
+        removeIsEmpty(cardRow, bunga);
 
         if (isConflict) {
             conflictResolve(cardRow);
